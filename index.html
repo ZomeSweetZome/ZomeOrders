@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zomes Order Status</title>
+    <meta name="description" content="Zomes Order Status" />
+    <meta name="author" content="Pavlo Voronin" />
+    <link rel="icon" href="./src/index/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="./src/index/favicon.ico" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="shortcut icon" href="" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="marevo_app">
+      <header id="main-header">
+        <div id="identity">
+          <a href="https://zomes.com/"></a>
+        </div>
+  
+        <div class="header_blocks">
+          <div
+            id="social-media"
+            class="top-frame-panel top-frame-panel__social-media"
+          >
+            <div class="">
+              <div class="vertical-align-wrapper">
+                <div class="social-media__wrapper">
+                  <a
+                    class="social-media-button social-media-button--mail"
+                    href="mailto:hello@zomes.com"
+                  ></a>
+                  <a
+                    class="social-media-button social-media-button--instagram"
+                    href="https://instagram.com/zomesweetzomes/"
+                    target="_blank"
+                  ></a>
+                  <a
+                    class="social-media-button social-media-button--tiktok"
+                    href="https://www.tiktok.com/@zomesweetzome?lang=en"
+                    target="_blank"
+                  ></a>
+                  <a
+                    class="social-media-button social-media-button--pinterest"
+                    href="https://www.pinterest.com/zomesweetzome/"
+                    target="_blank"
+                  ></a>
+                  <a
+                    class="social-media-button social-media-button--twitter"
+                    href="https://x.com/zomesweetzome"
+                    target="_blank"
+                  ></a>
+                  <a
+                    class="social-media-button social-media-button--facebook"
+                    href="https://www.facebook.com/zomesweetzome/"
+                    target="_blank"
+                  ></a>
+                  <a
+                    class="social-media-button social-media-button--youtube"
+                    href="https://www.youtube.com/channel/UCWuJ4fwV2KJ0mfQjUa5VXzQ"
+                    target="_blank"
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div id="tools" class="top-frame-panel top-frame-panel__tools">
+            <div class="">
+              <div class="vertical-align-wrapper">
+                <div class="selectors__container">
+                  <div class="select-wrapper currency-picker">
+                    <select class="custom-select">
+                      <option value="USD">$</option>
+                      <option value="EUR">€</option>
+                    </select>
+                  </div>
+  
+                  <div class="select-wrapper language-picker">
+                    <select class="custom-select">
+                      <option value="EN">EN</option>
+                      <option value="FR">FR</option>
+                      <option value="ES">ES</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div
+            id="external-link"
+            class="top-frame-panel top-frame-panel__external-link"
+          >
+            <a
+              class="vertical-align-wrapper external-link__wrapper"
+              href="https://www.zomes.com/"
+            >
+              HOMEPAGE
+              <div class="external-link__logo"></div>
+            </a>
+          </div>
+        </div>
+      </header>
+    
+    
+      <main class="product-type-3dmodel">
+        <section id="customer-info"></section>
+        
+        <section id="design-links"></section>
+        
+        <section id="invoices">
+          <div class="popup__info_title"></div>
+          <div id="invoice-links"></div>
+        </section>
+
+        <section id="timeline">
+          <div id="timeline-content" class="popup__info_timeline_content">
+            <div class="popup__info_title"></div>
+
+            <div class="timeline__container">
+              <div class="timeline__item">
+                <div class="timeline__item_title" id="manufacture_date_title"></div>
+
+                <div class="timeline__item_content">
+                  <div class="timeline__item_subtitle" id="manufacture_date_subtitle"></div>
+                  <div class="timeline__item_text" id="manufacture_date_text"></div>
+                </div>
+              </div>
+              <div class="timeline__item">
+                <div class="timeline__item_title" id="ship_date_title"></div>
+
+                <div class="timeline__item_content">
+                  <div class="timeline__item_subtitle" id="ship_date_subtitle"></div>
+                  <div class="timeline__item_text" id="ship_date_text"></div>
+                </div>
+              </div>
+              <div class="timeline__item">
+                <div class="timeline__item_title" id="delivery_date_title"></div>
+
+                <div class="timeline__item_content">
+                  <div class="timeline__item_subtitle" id="delivery_date_subtitle"></div>
+                  <div class="timeline__item_text" id="delivery_date_text"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.2.min.js"
+    integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script type="module" src="./js/settings.js"></script>
+  <script type="module" src="./js/ui-controller.js"></script>
+  <script type="module" src="./js/main.js"></script>
+</html>

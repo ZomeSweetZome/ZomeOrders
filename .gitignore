@@ -1,0 +1,8 @@
+node_modules/
+.vscode/
+TEMP/
+eslint.config.mjs
+package.json
+package-lock.json
+temp.html
+.eslintrc.js
