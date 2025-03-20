@@ -39,12 +39,14 @@ async function initPage() {
   const dealId = new URLSearchParams(window.location.search).get('orderid');
   if (!dealId) {
     document.querySelector('main').innerHTML = '<p>Error: Indicate Orderid in the URL</p>';
+    $('#js-loader').addClass('invisible');
     return;
   }
 
   const dealData = await fetchDealData(dealId);
   if (!dealData || !dealData.properties) {
     document.querySelector('main').innerHTML = '<p>Data loading error</p>';
+    $('#js-loader').addClass('invisible');
     return;
   }
 
@@ -92,9 +94,11 @@ async function initPage() {
   updateElementText('#delivery_date_text', 'delivery_date_text_' + timeline.delivery.label);
 
   updateUIlanguages(dataMain);
+
+  $('#js-loader').addClass('invisible');
 }
 
-//! **************************************************************
+// **************************************************************
 
 start();
 
@@ -112,6 +116,4 @@ async function start() {
   initPage();
 }
 
-
-//! **************************************************************
-
+// **************************************************************
