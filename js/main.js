@@ -1,10 +1,7 @@
 'use strict';
 /* global $ */
 
-import {
-  TOKEN,
-  DATAFILE_CSV_LINK_UI,
-} from './settings.js';
+import { DATAFILE_CSV_LINK_UI } from './settings.js';
 
 import {
   createUI,
@@ -18,7 +15,6 @@ let dataMain = [];
 async function fetchDealData(dealId) {
   try {
     const url = `https://zome-orders-backend.vercel.app/api/getDeal?dealId=${dealId}`;
-    console.log('🚀 Full URL:', url); //! DEBUG
     const response = await fetch(url, {
       method: 'GET',
       headers: {
@@ -27,7 +23,6 @@ async function fetchDealData(dealId) {
     });
     if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
     const data = await response.json();
-    console.log('🚀 Full data from HubSpot:', data); //! DEBUG
     return data;
   } catch (error) {
     console.error('🚀 Error:', error.message);
@@ -36,11 +31,7 @@ async function fetchDealData(dealId) {
 }
 
 function getDisplayDate(expected, actual) {
-  if (actual) return { 
-    date: actual,
-    label: 'actual',
-  };
-  
+  if (actual) return { date: actual, label: 'actual' };
   return { date: expected, label: 'expected' };
 }
 
@@ -58,36 +49,28 @@ async function initPage() {
   }
 
   const props = dealData.properties;
-  console.log("🚀 ~ initPage ~ props:", props);
+  console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
 
   // customer-info
   document.getElementById('customer-info').innerHTML = `
     <div class="popup__info_title"></div>
     <div class="popup__info_item">
       <div class="customer_info_title" id="customer_name"></div>
-      <div class="customer_info_content">${props.firstname || ''} ${props.lastname || ''}</div>
-    </div>
-    <div class="popup__info_item">
-      <div class="customer_info_title" id="customer_email"></div>
-      <div class="customer_info_content">${props.email || ''}</div>
-    </div>
-    <div class="popup__info_item">
-      <div class="customer_info_title" id="customer_zipcode"></div>
-      <div class="customer_info_content">${props.zip || ''}</div>
+      <div class="customer_info_content">${props.dealname || ''}</div>
     </div>
   `;
 
   // design-links
   const designs = props.final_designs ? props.final_designs.split(';') : [];
   document.getElementById('design-links').innerHTML = `
-    <div class="popup__info_title"></div>
-    ${designs.map(link => `<a href="${link}&s=final" target="_blank">${link}</a>`).join('<br>')}
+    <div class="popup__info_title">Final Designs</div>
+    ${designs.length > 0 ? designs.map(link => `<a href="${link}&s=final" target="_blank">${link}</a>`).join('<br>') : 'No designs available'}
   `;
 
   // invoice-links
   document.getElementById('invoice-links').innerHTML = `
     <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice">First Invoice</a><br>
-    <a href="${props.second_invoice || '#'}" target="_blank"id="order_second_invoice">Second Invoice</a>
+    <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice">Second Invoice</a>
   `;
 
   // Timeline

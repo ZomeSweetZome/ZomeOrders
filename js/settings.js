@@ -1,7 +1,5 @@
 'use strict';
 
-export const TOKEN = 'pat-na1-56790ae4-1f38-4f49-89f9-bbc8a7bbb0ef';
-
 export const DEFAULT_LANGUAGE = 'EN';
 export const DEFAULT_CURRENCY = '$';
 
