@@ -25,7 +25,9 @@ async function fetchDealData(dealId) {
       }
     });
     if (!response.ok) throw new Error('API Error');
-    return await response.json();
+    const data = await response.json();
+    console.log('🚀 Full data from Hubspot:', data); //! DEBUG
+    return data;
   } catch (error) {
     console.error('🚀 Error:', error);
     return null;
@@ -42,21 +44,20 @@ function getDisplayDate(expected, actual) {
 }
 
 async function initPage() {
-  // const dealId = new URLSearchParams(window.location.search).get('orderid');
-  // if (!dealId) {
-  //   document.querySelector('main').innerHTML = '<p>Error: Indicate Orderid in the URL</p>';
-  //   return;
-  // }
+  const dealId = new URLSearchParams(window.location.search).get('orderid');
+  if (!dealId) {
+    document.querySelector('main').innerHTML = '<p>Error: Indicate Orderid in the URL</p>';
+    return;
+  }
 
-  // const dealData = await fetchDealData(dealId);
-  // if (!dealData || !dealData.properties) {
-  //   document.querySelector('main').innerHTML = '<p>Data loading error</p>';
-  //   return;
-  // }
+  const dealData = await fetchDealData(dealId);
+  if (!dealData || !dealData.properties) {
+    document.querySelector('main').innerHTML = '<p>Data loading error</p>';
+    return;
+  }
 
-  // const props = dealData.properties;
-
-  const props = {}; //! TEMP
+  const props = dealData.properties;
+  console.log("🚀 ~ initPage ~ props:", props);
 
   // customer-info
   document.getElementById('customer-info').innerHTML = `
@@ -90,14 +91,9 @@ async function initPage() {
 
   // Timeline
   const timeline = {
-    // TODO
-    // manufacture: getDisplayDate(props.expected_manufactured_date, props.actual_manufactured_date),
-    // ship: getDisplayDate(props.expected_ship_date, props.actual_shipped_date),
-    // delivery: getDisplayDate(props.expected_delivery_date, props.actual_delivered_date),
-    //! TEMP
-    manufacture: { date: 'May 18, 2025', label: 'expected' },
-    ship: { date: 'June 15, 2025', label: 'expected' },
-    delivery: { date: 'June 20, 2025', label: 'expected' },
+    manufacture: getDisplayDate(props.expected_manufactured_date, props.actual_manufactured_date),
+    ship: getDisplayDate(props.expected_ship_date, props.actual_shipped_date),
+    delivery: getDisplayDate(props.expected_delivery_date, props.actual_delivered_date),
   };
 
   $('#manufacture_date_title').text(timeline.manufacture.date);
