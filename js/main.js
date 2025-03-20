@@ -36,10 +36,10 @@ let dataMain = [];
 
 async function fetchDealData(dealId) {
   try {
-    const proxyUrl = 'https://cors-zomes-quoo7rody-pavlovoronins-projects.vercel.app/';
+    const proxyUrl = 'https://cors-zomes.vercel.app/';
     const targetUrl = `https://api.hubapi.com/crm/v3/objects/deals/${dealId}`;
     const fullUrl = proxyUrl + targetUrl;
-    console.log('🚀 Повний URL запиту:', fullUrl); //! DEBUG
+    console.log('🚀 Full URL:', fullUrl); //! DEBUG
     const response = await fetch(fullUrl, {
       method: 'GET',
       headers: {
