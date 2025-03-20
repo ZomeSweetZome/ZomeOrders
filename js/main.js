@@ -22,7 +22,6 @@ async function fetchDealData(dealId) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${TOKEN}`,
         'Content-Type': 'application/json'
       }
     });
