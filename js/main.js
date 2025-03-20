@@ -15,21 +15,44 @@ import {
 
 let dataMain = [];
 
+// async function fetchDealData(dealId) {
+//   try {
+//     const response = await fetch(`https://api.hubapi.com/crm/v3/objects/deals/${dealId}`, {
+//       method: 'GET',
+//       headers: {
+//         'Authorization': `Bearer ${TOKEN}`,
+//         'Content-Type': 'application/json'
+//       }
+//     });
+//     if (!response.ok) throw new Error('API Error');
+//     const data = await response.json();
+//     console.log('🚀 Full data from Hubspot:', data); //! DEBUG
+//     return data;
+//   } catch (error) {
+//     console.error('🚀 Error:', error);
+//     return null;
+//   }
+// }
+
 async function fetchDealData(dealId) {
   try {
-    const response = await fetch(`https://api.hubapi.com/crm/v3/objects/deals/${dealId}`, {
+    const proxyUrl = 'https://cors-zomes-m9vyo7tb9-pavlovoronins-projects.vercel.app/';
+    const targetUrl = `https://api.hubapi.com/crm/v3/objects/deals/${dealId}`;
+    const fullUrl = proxyUrl + targetUrl;
+    console.log('🚀 Повний URL запиту:', fullUrl); //! DEBUG
+    const response = await fetch(fullUrl, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${TOKEN}`,
         'Content-Type': 'application/json'
       }
     });
-    if (!response.ok) throw new Error('API Error');
+    if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
     const data = await response.json();
     console.log('🚀 Full data from Hubspot:', data); //! DEBUG
     return data;
   } catch (error) {
-    console.error('🚀 Error:', error);
+    console.error('🚀 Error:', error.message);
     return null;
   }
 }
