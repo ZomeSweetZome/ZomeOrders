@@ -15,32 +15,11 @@ import {
 
 let dataMain = [];
 
-// async function fetchDealData(dealId) {
-//   try {
-//     const response = await fetch(`https://api.hubapi.com/crm/v3/objects/deals/${dealId}`, {
-//       method: 'GET',
-//       headers: {
-//         'Authorization': `Bearer ${TOKEN}`,
-//         'Content-Type': 'application/json'
-//       }
-//     });
-//     if (!response.ok) throw new Error('API Error');
-//     const data = await response.json();
-//     console.log('🚀 Full data from Hubspot:', data); //! DEBUG
-//     return data;
-//   } catch (error) {
-//     console.error('🚀 Error:', error);
-//     return null;
-//   }
-// }
-
 async function fetchDealData(dealId) {
   try {
-    const proxyUrl = 'https://cors-zomes.vercel.app/';
-    const targetUrl = `https://api.hubapi.com/crm/v3/objects/deals/${dealId}`;
-    const fullUrl = proxyUrl + targetUrl;
-    console.log('🚀 Full URL:', fullUrl); //! DEBUG
-    const response = await fetch(fullUrl, {
+    const url = `https://zome-orders-backend.vercel.app/api/getDeal?dealId=${dealId}`;
+    console.log('🚀 Full URL:', url); //! DEBUG
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${TOKEN}`,
@@ -49,7 +28,7 @@ async function fetchDealData(dealId) {
     });
     if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
     const data = await response.json();
-    console.log('🚀 Full data from Hubspot:', data); //! DEBUG
+    console.log('🚀 Full data from HubSpot:', data); //! DEBUG
     return data;
   } catch (error) {
     console.error('🚀 Error:', error.message);
