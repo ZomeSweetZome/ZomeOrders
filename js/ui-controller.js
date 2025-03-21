@@ -5,6 +5,10 @@ import {
   DEFAULT_LANGUAGE,
 } from './settings.js';
 
+import {
+  timeline,
+} from './main.js';
+
 let currentLanguage;
 export let uiMultiLanguages = [
   { '#customer-info .popup__info_title': 'ui_order_customer_info' },
@@ -12,6 +16,7 @@ export let uiMultiLanguages = [
   { '#customer_email': 'ui_order_customer_info_email' },
   { '#customer_zipcode': 'ui_order_customer_info_zipcode' },
   { '#design-links .popup__info_title': 'ui_order_design' },
+  { '.ui_design_link': 'ui_design_link' },
   { '#invoices .popup__info_title': 'ui_order_invoices' },
   { '#order_first_invoice': 'order_first_invoice' },
   { '#order_second_invoice': 'order_second_invoice' },
@@ -37,6 +42,16 @@ export function createUI(data) {
     $('.language-picker select').on('change', function () {
       currentLanguage = $(this).val();
       updateUIlanguages(data);
+
+      if (timeline) {
+        const manufactureDate = humanizeDateStrings(timeline.manufacture.date, currentLanguage);
+        const shipDate = humanizeDateStrings(timeline.ship.date, currentLanguage);
+        const deliveryDate = humanizeDateStrings(timeline.delivery.date, currentLanguage);
+
+        $('#manufacture_date_title').text(manufactureDate);
+        $('#ship_date_title').text(shipDate);
+        $('#delivery_date_title').text(deliveryDate);
+      }
     });
 
     updateUIlanguages(data);
@@ -184,37 +199,23 @@ export function parseNumber(str) {
   return number;
 }
 
+export function humanizeDateStrings(dateStr, lang = 'EN') {
+  const monthNames = {
+    EN: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    FR: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+    ES: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+  };
 
-// Checking finalizing status
-const blockedMenuSelectors = [
-  // '.ar_filter_options '
-];
+  let [year, month, day] = dateStr.split('-').map(Number);
+  month = monthNames[lang][month];
 
-export function checkConfigFinalized() {
-  $(document).ready(function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('s') === 'final') {
-      isFinalized = true;
-      
-      blockedMenuSelectors.forEach(selector => {
-        $(selector).css({
-          'pointer-events': 'none',
-          'position': 'relative',
-          'color': '#aaa'
-        }).append('<div class="overlay"></div>');
-        
-        $('.overlay').css({
-          'position': 'absolute',
-          'top': 0,
-          'left': 0,
-          'width': '100%',
-          'height': '100%',
-          'background': 'rgba(255,255,255,0.5)',
-          'z-index': 1
-        });
-      });
-    } else {
-      isFinalized = false;
-    }
-  });
+  let resultString;
+
+  if (lang === 'EN') {
+    resultString = `${month} ${day}, ${year}`;
+  } else if (lang === 'FR' || lang === 'ES') {
+    resultString = `${day} ${month} ${year}`;
+  }
+
+  return resultString;
 }
