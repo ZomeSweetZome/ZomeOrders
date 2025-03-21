@@ -71,7 +71,10 @@ async function initPage() {
 
   // invoice-links
   document.getElementById('invoice-links').innerHTML = `
-    <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice">First Invoice</a><br>
+    <img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+    <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice">
+    First Invoice</a><br>
+    <img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
     <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice">Second Invoice</a>
   `;
 
