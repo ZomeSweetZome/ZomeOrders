@@ -955,16 +955,16 @@ section {
   
   .side-image {
     width: 100%; /* Full width container */
-    height: 33vh; /* One third of the viewport height */
+    height: 40vh; /* One third of the viewport height */
     position: relative;
-    order: 0; /* Image appears first (at the top) */
+    order: 1; /* Image appears first (at the top) */
   }
   
   /* Ensure the image container is properly sized */
   .side-image img {
     position: absolute;
-    height: 90%;
-    width: 90%;
+    height: 100%;
+    width: 100%;
   }
 }
 
