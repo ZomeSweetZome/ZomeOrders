@@ -55,6 +55,8 @@ export function createUI(data) {
     });
 
     updateUIlanguages(data);
+
+    window.updateUIlanguages = updateUIlanguages;
   });
 }
 

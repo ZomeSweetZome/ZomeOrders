@@ -11,6 +11,7 @@ import {
   loadAndParseCSV,
   updateElementText,
   humanizeDateStrings,
+  updateUIlanguages,
 } from './ui-controller.js';
 
 let dataMain = [];
@@ -98,16 +99,6 @@ async function initPage() {
   `;
 
   (!props.final_designs || designs.length == 0) && updateElementText('.ui_design_link', 'ui_design_link_null');
-
-  // invoice-links
-  // document.getElementById('invoice-links').innerHTML = `
-  //  <img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-  //   <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice">
-  //   First Invoice</a><br>
-  //   <img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-  //   <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice">Second Invoice</a>
-  // `;
-
   document.getElementById('invoice-links').innerHTML = `
     ${props.first_invoice 
       ? `<img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
@@ -165,6 +156,9 @@ async function start() {
   await prepareDataFiles();
   createUI(dataMain);
   initPage();
+  setTimeout(() => {
+    updateUIlanguages(dataMain);
+  }, 100);
 }
 
 // **************************************************************
