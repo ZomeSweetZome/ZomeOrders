@@ -138,6 +138,7 @@ async function initPage() {
   updateElementText('#delivery_date_subtitle', 'delivery_date_subtitle_' + timeline.delivery.label);
   updateElementText('#delivery_date_text', 'delivery_date_text_' + timeline.delivery.label);
 
+  updateUIlanguages(dataMain);
   $('#js-loader').addClass('invisible');
 }
 
@@ -157,9 +158,6 @@ async function start() {
   await prepareDataFiles();
   createUI(dataMain);
   initPage();
-  setTimeout(() => {
-    updateUIlanguages(dataMain);
-  }, 100);
 }
 
 // **************************************************************
