@@ -9,7 +9,7 @@ import {
   timeline,
 } from './main.js';
 
-let currentLanguage;
+let currentLanguage = DEFAULT_LANGUAGE;
 export let uiMultiLanguages = [
   { '#customer-info .popup__info_title': 'ui_order_customer_info' },
   { '#customer_name': 'ui_order_customer_info_name' },
