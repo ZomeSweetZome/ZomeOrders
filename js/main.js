@@ -15,6 +15,7 @@ import {
 } from './ui-controller.js';
 
 let dataMain = [];
+window.dataMain = dataMain;
 export let timeline;
 
 async function fetchDealData(dealId) {
