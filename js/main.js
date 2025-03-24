@@ -100,15 +100,26 @@ async function initPage() {
   (!props.final_designs || designs.length == 0) && updateElementText('.ui_design_link', 'ui_design_link_null');
 
   // invoice-links
+  // document.getElementById('invoice-links').innerHTML = `
+  //  <img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+  //   <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice">
+  //   First Invoice</a><br>
+  //   <img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+  //   <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice">Second Invoice</a>
+  // `;
+
   document.getElementById('invoice-links').innerHTML = `
-<<<<<<< HEAD
-   <img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-    <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice">
-    First Invoice</a><br>
-    <img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-    <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice">Second Invoice</a>
->>>>>>> ef167ded85e1dbdaf46900dc1d78e741819b5963
+    ${props.first_invoice 
+      ? `<img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+         <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice"></a><br><br>` 
+      : `<span id="order_first_invoice"></span><br><br>`}
+    ${props.second_invoice 
+      ? `<img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+         <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice"></a>` 
+      : `<span id="order_second_invoice"></span>`}
   `;
+
+
   (!props.first_invoice) && updateElementText('#order_first_invoice', 'order_first_invoice_null');
   (!props.second_invoice) && updateElementText('#order_second_invoice', 'order_second_invoice_null');
 
