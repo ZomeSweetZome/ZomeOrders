@@ -694,6 +694,10 @@ section {
   .popup__info_title {
     font-size: 18px;
   }
+
+  .customer_info_title {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 624px) {
