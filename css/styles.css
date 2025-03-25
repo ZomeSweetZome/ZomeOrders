@@ -430,7 +430,7 @@ body, html {
   font-size: 14px;
   font-weight: 700;
   color: var(--marevo-color-text-black, #000);
-  min-width: min(147px, 29%);
+  min-width: min(147px, 36%);
   max-width: 29%;
   padding-right: 20px;
 }
@@ -753,6 +753,12 @@ section {
   }
 }
 
+@media screen and (max-width: 400px) and (orientation: portrait) {
+  .timeline__item_content {
+    padding: 0 0 27px 27px;
+  }
+}
+
 @media (max-width: 400px) {
   .social-media-button {
     display: none;
@@ -982,5 +988,6 @@ section {
   /* Adjust the main content to account for the fixed image */
   .product-type-3dmodel {
     margin-right: 45%; /* Adjust for the side image width */
+    padding: 0 20px 0 0; 
   }
 }
