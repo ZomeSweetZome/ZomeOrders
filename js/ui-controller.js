@@ -14,13 +14,14 @@ export let uiMultiLanguages = [
   { '#customer-info .popup__info_title': 'ui_order_customer_info' },
   { '#customer_name': 'ui_order_customer_info_name' },
   { '#customer_email': 'ui_order_customer_info_email' },
-  { '#customer_zipcode': 'ui_order_customer_info_zipcode' },
+  { '#customer_phone': 'ui_order_customer_info_phone' },
   { '#design-links .popup__info_title': 'ui_order_design' },
   { '.ui_design_link': 'ui_design_link' },
   { '#invoices .popup__info_title': 'ui_order_invoices' },
   { '#order_first_invoice': 'order_first_invoice' },
   { '#order_second_invoice': 'order_second_invoice' },
   { '#timeline .popup__info_title': 'ui_order_timeline' },
+  { '#shipping-address .popup__info_title': 'ui_order_shipping_address' },
   { '#manufacture_date_subtitle': 'manufacture_date_subtitle_expected' },
   { '#manufacture_date_text': 'manufacture_date_text_expected' },
   { '#ship_date_subtitle': 'ship_date_subtitle_expected' },
@@ -202,6 +203,9 @@ export function parseNumber(str) {
 }
 
 export function humanizeDateStrings(dateStr, lang = 'EN') {
+  if (!dateStr) return '';
+
+  // console.log("🚀 ~ humanizeDateStrings ~ dateStr:", dateStr);
   const monthNames = {
     EN: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     FR: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
@@ -221,3 +225,16 @@ export function humanizeDateStrings(dateStr, lang = 'EN') {
 
   return resultString;
 }
+
+export function subtractWeeks(dateStr, weeks = 8) {
+  const date = new Date(dateStr);
+  
+  date.setDate(date.getDate() - weeks * 7);
+  
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
+}
+

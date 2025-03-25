@@ -559,7 +559,7 @@ section {
 .popup__info_item {
   display: flex;
   position: relative;
-  flex-direction: row;
+  flex-direction: column;
   align-items: start;
   margin-bottom: 20px;
 }

@@ -3,7 +3,7 @@
 
 import {
   DATAFILE_CSV_LINK_UI,
-  // testProps, //! DEBUG
+  // testProps, testСontacts, //! DEBUG
 } from './settings.js';
 
 import {
@@ -11,6 +11,7 @@ import {
   loadAndParseCSV,
   updateElementText,
   humanizeDateStrings,
+  subtractWeeks,
   updateUIlanguages,
 } from './ui-controller.js';
 
@@ -56,17 +57,29 @@ async function initPage() {
     return;
   }
 
-  const props = dealData.properties;
+  const props = dealData.properties || {};
+  const contacts = dealData.associatedContacts[0].properties || [];
 
   console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
+  console.log("🚀 ~ initPage ~ contacts:", contacts); //! DEBUG
+
   // const props = testProps; //! DEBUG
+  // const contacts = testСontacts; //! DEBUG
+
+  const currentLanguage = $('.language-picker select').val() || 'EN';
 
   // customer-info
   document.getElementById('customer-info').innerHTML = `
     <div class="popup__info_title"></div>
     <div class="popup__info_item">
       <div class="customer_info_title" id="customer_name"></div>
-      <div class="customer_info_content">${props.dealname || ''}</div>
+      <div class="customer_info_content">${(contacts.firstname || '') + ' ' + (contacts.lastname || '')}</div>
+      <br>
+      <div class="customer_info_title" id="customer_email"></div>
+      <div class="customer_info_content">${contacts.email || ''}</div>
+      <br>
+      <div class="customer_info_title" id="customer_phone"></div>
+      <div class="customer_info_content">${contacts.phone || ''}</div>
     </div>
   `;
 
@@ -100,29 +113,49 @@ async function initPage() {
   `;
 
   (!props.final_designs || designs.length == 0) && updateElementText('.ui_design_link', 'ui_design_link_null');
+
+  // Invoices
   document.getElementById('invoice-links').innerHTML = `
     ${props.first_invoice 
       ? `<img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
          <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice"></a><br><br>` 
-      : `<span id="order_first_invoice"></span><br><br>`}
+      : `<span id="order_first_invoice"></span><span id="order_first_invoice2"></span><span id="order_first_invoice3"></span><br><br>`}
     ${props.second_invoice 
       ? `<img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
          <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice"></a>` 
-      : `<span id="order_second_invoice"></span>`}
+      : `<span id="order_second_invoice"></span><span id="order_second_invoice2"></span><span id="order_second_invoice3"></span>`}
   `;
 
+  if(!props.first_invoice) {
+    if (props.expected_manufactured_date) {
+      updateElementText('#order_first_invoice', 'order_first_invoice_null2');
+      const invoiceDateString = subtractWeeks(props.expected_manufactured_date, 8);
+      const invoiceDate = humanizeDateStrings(invoiceDateString, currentLanguage);
+      $('#order_first_invoice2').text(' ' + invoiceDate);
+    } else {
+      updateElementText('#order_first_invoice', 'order_first_invoice_null');
+    }
+  }
 
-  (!props.first_invoice) && updateElementText('#order_first_invoice', 'order_first_invoice_null');
-  (!props.second_invoice) && updateElementText('#order_second_invoice', 'order_second_invoice_null');
+  if(!props.second_invoice) {
+    updateElementText('#order_second_invoice', 'order_second_invoice_null');
+  }
+
+  // Shipping Address
+  if (props.shipping_address) {
+    document.getElementById('shipping-address').innerHTML = `
+      <div class="popup__info_title"></div>
+      ${props.shipping_address || ''}
+    `;
+  }
 
   // Timeline
   timeline = {
     manufacture: getDisplayDate(props.expected_manufactured_date, props.actual_manufactured_date),
-    ship: getDisplayDate(props.expected_ship_date, props.actual_shipped_date),
+    ship: getDisplayDate(props.expected_ship_date, props.actual_ship_date),
     delivery: getDisplayDate(props.expected_delivery_date, props.actual_delivered_date),
   };
 
-  const currentLanguage = $('.language-picker select').val() || 'EN';
   const manufactureDate = humanizeDateStrings(timeline.manufacture.date, currentLanguage);
   const shipDate = humanizeDateStrings(timeline.ship.date, currentLanguage);
   const deliveryDate = humanizeDateStrings(timeline.delivery.date, currentLanguage);
