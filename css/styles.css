@@ -430,7 +430,7 @@ body, html {
   font-size: 14px;
   font-weight: 700;
   color: var(--marevo-color-text-black, #000);
-  min-width: min(147px, 36%);
+  min-width: min(160px, 36%);
   max-width: 29%;
   padding-right: 20px;
 }
@@ -449,8 +449,8 @@ body, html {
   background-image: var(--marevo-ui-icon_timeline_point);
   background-repeat: no-repeat;
   background-size: contain;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   position: absolute;
   left: -8px;
   top: 0;
@@ -565,7 +565,7 @@ section {
 }
 
 .customer_info_title {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   text-align: left;
   color: var(--marevo-color-text-black, #000);
