@@ -58,7 +58,7 @@ async function initPage() {
 
   const props = dealData.properties;
 
-  // console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
+  console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
   // const props = testProps; //! DEBUG
 
   // customer-info
