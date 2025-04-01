@@ -116,15 +116,53 @@ async function initPage() {
 
   // Invoices
   document.getElementById('invoice-links').innerHTML = `
-    ${props.first_invoice 
-      ? `<img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-         <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice"></a><br><br>` 
-      : `<span id="order_first_invoice"></span><span id="order_first_invoice2"></span><span id="order_first_invoice3"></span><br><br>`}
-    ${props.second_invoice 
-      ? `<img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-         <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice"></a>` 
-      : `<span id="order_second_invoice"></span><span id="order_second_invoice2"></span><span id="order_second_invoice3"></span>`}
+    <div class="section__invoices">
+      <div class="invoice__container">
+        ${props.first_invoice 
+          ? `<div><img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+            <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice"></a></div>` 
+          : `<span><span id="order_first_invoice"></span><span id="order_first_invoice2"></span></span>`}
+
+        ${props.first_payment_link 
+          ? `<div><img src="./src/ar-ui-icons/wallet.png" alt="Wallet Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+            <a href="${props.first_payment_link || '#'}" target="_blank" id="order_first_payment"></a></div>` 
+          : ``}
+
+        ${(props.first_payment_status && props.first_payment_status.toLowerCase() == 'yes')
+          ? `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+            <span class="payment_status_yes"></span></div>` 
+          : `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+            <span class="payment_status_no"></span></div>`}
+      </div>
+
+      <div class="invoice__container">
+        ${props.second_invoice 
+          ? `<div><img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+            <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice"></a></div>` 
+          // : `<span id="order_second_invoice"></span><span id="order_second_invoice2"></span><span id="order_second_invoice3"></span>`}
+          : ``}
+
+        ${props.second_payment_link 
+          ? `<div><img src="./src/ar-ui-icons/wallet.png" alt="Wallet Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+              <a href="${props.second_payment_link || '#'}" target="_blank" id="order_second_payment"></a></div>` 
+          : ``}
+
+        ${(props.second_payment_status && props.second_payment_status.toLowerCase() == 'yes')
+          ? `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+              <span class="payment_status_yes"></span></div>` 
+          : `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+            <span class="payment_status_no"></span></div>`}
+      </div>
+    </div>
   `;
+
+  // FIELD
+  // first_payment_status
+  // second_payment_status
+
+  // ID
+  // payment_status_yes
+  // payment_status_no
 
   if(!props.first_invoice) {
     if (props.expected_manufactured_date) {
