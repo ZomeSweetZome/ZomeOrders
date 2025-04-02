@@ -3,7 +3,7 @@
 
 import {
   DATAFILE_CSV_LINK_UI,
-  testProps, testСontacts, //! DEBUG
+  // testProps, testСontacts, //! DEBUG
 } from './settings.js';
 
 import {
@@ -42,29 +42,39 @@ function getDisplayDate(expected, actual) {
   return { date: expected, label: 'expected' };
 }
 
+function formatUSPhone(phone) {
+  const cleaned = ('' + phone).replace(/\D/g, '');
+  if (cleaned.length !== 11) return phone || 'N/A';
+  const country = cleaned[0];
+  const area = cleaned.slice(1, 4);
+  const firstPart = cleaned.slice(4, 7);
+  const secondPart = cleaned.slice(7);
+  return `${country}(${area})${firstPart}-${secondPart}`;
+}
+
 async function initPage() {
-  // const dealId = new URLSearchParams(window.location.search).get('orderid');
-  // if (!dealId) {
-  //   document.querySelector('main').innerHTML = '<p>Error: Indicate Orderid in the URL</p>';
-  //   $('#js-loader').addClass('invisible');
-  //   return;
-  // }
+  const dealId = new URLSearchParams(window.location.search).get('orderid');
+  if (!dealId) {
+    document.querySelector('main').innerHTML = '<p>Error: Indicate Orderid in the URL</p>';
+    $('#js-loader').addClass('invisible');
+    return;
+  }
 
-  // const dealData = await fetchDealData(dealId);
-  // if (!dealData || !dealData.properties) {
-  //   document.querySelector('main').innerHTML = '<p>Data loading error</p>';
-  //   $('#js-loader').addClass('invisible');
-  //   return;
-  // }
+  const dealData = await fetchDealData(dealId);
+  if (!dealData || !dealData.properties) {
+    document.querySelector('main').innerHTML = '<p>Data loading error</p>';
+    $('#js-loader').addClass('invisible');
+    return;
+  }
 
-  // const props = dealData.properties || {};
-  // const contacts = dealData.associatedContacts[0].properties || [];
+  const props = dealData.properties || {};
+  const contacts = dealData.associatedContacts[0].properties || [];
 
-  // console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
-  // console.log("🚀 ~ initPage ~ contacts:", contacts); //! DEBUG
+  console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
+  console.log("🚀 ~ initPage ~ contacts:", contacts); //! DEBUG
 
-  const props = testProps; //! DEBUG
-  const contacts = testСontacts; //! DEBUG
+  // const props = testProps; //! DEBUG
+  // const contacts = testСontacts; //! DEBUG
 
   const currentLanguage = $('.language-picker select').val() || 'EN';
 
@@ -79,7 +89,7 @@ async function initPage() {
       <div class="customer_info_content">${contacts.email || ''}</div>
       <br>
       <div class="customer_info_title" id="customer_phone"></div>
-      <div class="customer_info_content">${contacts.phone || ''}</div>
+      <div class="customer_info_content">${formatUSPhone(contacts.phone) || ''}</div>
     </div>
   `;
 
