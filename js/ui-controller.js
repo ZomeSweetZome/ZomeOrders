@@ -18,6 +18,7 @@ export let uiMultiLanguages = [
   { '#design-links .popup__info_title': 'ui_order_design' },
   { '.ui_design_link': 'ui_design_link' },
   { '#invoices .popup__info_title': 'ui_order_invoices' },
+  { '#payment_links .popup__info_title': 'ui_order_payment_links' },
   { '#order_first_invoice': 'order_first_invoice' },
   { '#order_first_payment': 'first_payment_link' },
   { '.payment_status_yes': 'payment_status_yes' },

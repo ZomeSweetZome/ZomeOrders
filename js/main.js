@@ -3,7 +3,7 @@
 
 import {
   DATAFILE_CSV_LINK_UI,
-  // testProps, testСontacts, //! DEBUG
+  testProps, testСontacts, //! DEBUG
 } from './settings.js';
 
 import {
@@ -43,28 +43,28 @@ function getDisplayDate(expected, actual) {
 }
 
 async function initPage() {
-  const dealId = new URLSearchParams(window.location.search).get('orderid');
-  if (!dealId) {
-    document.querySelector('main').innerHTML = '<p>Error: Indicate Orderid in the URL</p>';
-    $('#js-loader').addClass('invisible');
-    return;
-  }
+  // const dealId = new URLSearchParams(window.location.search).get('orderid');
+  // if (!dealId) {
+  //   document.querySelector('main').innerHTML = '<p>Error: Indicate Orderid in the URL</p>';
+  //   $('#js-loader').addClass('invisible');
+  //   return;
+  // }
 
-  const dealData = await fetchDealData(dealId);
-  if (!dealData || !dealData.properties) {
-    document.querySelector('main').innerHTML = '<p>Data loading error</p>';
-    $('#js-loader').addClass('invisible');
-    return;
-  }
+  // const dealData = await fetchDealData(dealId);
+  // if (!dealData || !dealData.properties) {
+  //   document.querySelector('main').innerHTML = '<p>Data loading error</p>';
+  //   $('#js-loader').addClass('invisible');
+  //   return;
+  // }
 
-  const props = dealData.properties || {};
-  const contacts = dealData.associatedContacts[0].properties || [];
+  // const props = dealData.properties || {};
+  // const contacts = dealData.associatedContacts[0].properties || [];
 
-  console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
-  console.log("🚀 ~ initPage ~ contacts:", contacts); //! DEBUG
+  // console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
+  // console.log("🚀 ~ initPage ~ contacts:", contacts); //! DEBUG
 
-  // const props = testProps; //! DEBUG
-  // const contacts = testСontacts; //! DEBUG
+  const props = testProps; //! DEBUG
+  const contacts = testСontacts; //! DEBUG
 
   const currentLanguage = $('.language-picker select').val() || 'EN';
 
@@ -116,53 +116,17 @@ async function initPage() {
 
   // Invoices
   document.getElementById('invoice-links').innerHTML = `
-    <div class="section__invoices">
-      <div class="invoice__container">
-        ${props.first_invoice 
-          ? `<div><img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-            <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice"></a></div>` 
-          : `<span><span id="order_first_invoice"></span><span id="order_first_invoice2"></span></span>`}
+    ${props.first_invoice 
+      ? `<div><img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+        <a href="${props.first_invoice || '#'}" target="_blank" id="order_first_invoice"></a></div>` 
+      : `<span><span id="order_first_invoice"></span><span id="order_first_invoice2"></span></span>`}
 
-        ${props.first_payment_link 
-          ? `<div><img src="./src/ar-ui-icons/wallet.png" alt="Wallet Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-            <a href="${props.first_payment_link || '#'}" target="_blank" id="order_first_payment"></a></div>` 
-          : ``}
-
-        ${(props.first_payment_status && props.first_payment_status.toLowerCase() == 'yes')
-          ? `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-            <span class="payment_status_yes"></span></div>` 
-          : `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-            <span class="payment_status_no"></span></div>`}
-      </div>
-
-      <div class="invoice__container">
-        ${props.second_invoice 
-          ? `<div><img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-            <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice"></a></div>` 
-          // : `<span id="order_second_invoice"></span><span id="order_second_invoice2"></span><span id="order_second_invoice3"></span>`}
-          : ``}
-
-        ${props.second_payment_link 
-          ? `<div><img src="./src/ar-ui-icons/wallet.png" alt="Wallet Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-              <a href="${props.second_payment_link || '#'}" target="_blank" id="order_second_payment"></a></div>` 
-          : ``}
-
-        ${(props.second_payment_status && props.second_payment_status.toLowerCase() == 'yes')
-          ? `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-              <span class="payment_status_yes"></span></div>` 
-          : `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
-            <span class="payment_status_no"></span></div>`}
-      </div>
-    </div>
+    ${props.second_invoice 
+      ? `<div><img src="./src/ar-ui-icons/invoice.png" alt="Invoice Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+        <a href="${props.second_invoice || '#'}" target="_blank" id="order_second_invoice"></a></div>` 
+      // : `<span id="order_second_invoice"></span><span id="order_second_invoice2"></span><span id="order_second_invoice3"></span>`}
+      : ``}
   `;
-
-  // FIELD
-  // first_payment_status
-  // second_payment_status
-
-  // ID
-  // payment_status_yes
-  // payment_status_no
 
   if(!props.first_invoice) {
     if (props.expected_manufactured_date) {
@@ -178,6 +142,37 @@ async function initPage() {
   if(!props.second_invoice) {
     updateElementText('#order_second_invoice', 'order_second_invoice_null');
   }
+
+  // Payment links
+  document.getElementById('payment-links').innerHTML = `
+    <div class="paymentlink__container">
+      ${props.first_payment_link 
+        ? `<div><img src="./src/ar-ui-icons/wallet.png" alt="Wallet Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+          <a href="${props.first_payment_link || '#'}" target="_blank" id="order_first_payment"></a></div>` 
+        : ``}
+
+      ${(props.first_payment_status 
+        && (props.first_payment_status.toLowerCase() == 'yes' || props.first_payment_status.toLowerCase() == 'true'))
+        ? `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+          <span class="payment_status_yes"></span></div>` 
+        : `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+          <span class="payment_status_no"></span></div>`}
+    </div>
+
+    <div class="paymentlink__container">
+      ${props.second_payment_link 
+        ? `<div><img src="./src/ar-ui-icons/wallet.png" alt="Wallet Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+            <a href="${props.second_payment_link || '#'}" target="_blank" id="order_second_payment"></a></div>` 
+        : ``}
+
+      ${(props.second_payment_status 
+        && (props.second_payment_status.toLowerCase() == 'yes' || props.second_payment_status.toLowerCase() == 'true'))
+        ? `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+            <span class="payment_status_yes"></span></div>` 
+        : `<div><img src="./src/ar-ui-icons/status.png" alt="Status Icon" style="width: 16px; height: 16px; vertical-align: middle;">
+          <span class="payment_status_no"></span></div>`}
+    </div>
+  `;
 
   // Shipping Address
   if (props.shipping_address) {

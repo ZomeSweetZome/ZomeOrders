@@ -47,7 +47,7 @@ export const testProps = { //! DEBUG
   // "first_invoice": "https://hs.zomes.com/76d8da7828cf11a86a34",
   "first_invoice": null,
   "first_payment_link": "https://pay.zomes.com/b/4gw6q98Q1frjf28bIS",
-  "first_payment_status": null,
+  "first_payment_status": 'false',
   "forecast_close_date": null,
   "full_payment_link": null,
   "hs_acv": null,
@@ -586,7 +586,7 @@ export const testProps = { //! DEBUG
   "pipeline": "704734729",
   "second_invoice": null,
   "second_payment_link": "https://pay.zomes.com/b/8wM6q94zL4MF1bifZ9",
-  "second_payment_status": 'yes',
+  "second_payment_status": 'false',
   "shipping_address": null,
   "zome_design": null
 }
