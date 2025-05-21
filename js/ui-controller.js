@@ -218,7 +218,7 @@ export function humanizeDateStrings(dateStr, lang = 'EN') {
   };
 
   let [year, month, day] = dateStr.split('-').map(Number);
-  month = monthNames[lang][month];
+  month = monthNames[lang][month - 1];
 
   let resultString;
 
