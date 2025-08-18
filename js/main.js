@@ -67,8 +67,10 @@ async function initPage() {
     return;
   }
 
-  const props = dealData.properties || {};
-  const contacts = dealData.associatedContacts[0].properties || [];
+  const props = (dealData) ? dealData.properties : {};
+  const contacts = (dealData.associatedContacts[0]) 
+    ? dealData.associatedContacts[0].properties
+    : [];
 
   console.log("🚀 ~ initPage ~ props:", props); //! DEBUG
   console.log("🚀 ~ initPage ~ contacts:", contacts); //! DEBUG
